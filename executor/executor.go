@@ -14,18 +14,14 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type If struct {
-	Condition string `json:"condition" validate:"required,javascript"`
-	Trigger   string `json:"trigger" validate:"required,alphanum"`
-}
-
-type Else struct {
-	Trigger string `json:"trigger" validate:"required,alphanum"`
-}
-
 type Input struct {
-	If   If   `json:"if" validate:"required"`
-	Else Else `json:"else" validate:"required"`
+	If struct {
+		Condition string `json:"condition" validate:"required,javascript"`
+		Trigger   string `json:"trigger" validate:"required,alphanum"`
+	} `json:"if" validate:"required"`
+	Else struct {
+		Trigger string `json:"trigger" validate:"required,alphanum"`
+	} `json:"else" validate:"required"`
 }
 
 type Output struct {
@@ -78,25 +74,6 @@ func (e *IfExecutor) convertInput(input interface{}) (*Input, error) {
 		return nil, stacktrace.PropagateWithCode(err, types.ErrInvalidTask, "Error converting input to struct")
 	}
 	return e.inputCache, nil
-}
-
-// inputToStringKeyMap converts the input to a map[string]interface{} representation.
-// If the input is already a map[interface{}]interface{}, it converts the keys to strings.
-// If the input is not a map[interface{}]interface{}, it assumes it is already a map[string]interface{}.
-// Returns the converted map[string]interface{} representation of the input.
-func (e *IfExecutor) inputToStringKeyMap(input interface{}) map[string]interface{} {
-	final := make(map[string]interface{})
-	if in, ok := input.(map[interface{}]interface{}); ok {
-		for k, v := range in {
-			if reflect.TypeOf(v).Kind() == reflect.Map {
-				v = e.inputToStringKeyMap(v)
-			}
-			final[k.(string)] = v
-		}
-	} else {
-		final = input.(map[string]interface{})
-	}
-	return final
 }
 
 func getTaskById(id string, tasks []*types.Task) *types.Task {
