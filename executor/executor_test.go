@@ -40,23 +40,6 @@ var _ = Describe("If Executor", func() {
 			},
 			task,
 		}
-		// wf = engine.NewWorkflowBuilder().
-		// 	WithID("wf1").
-		// 	WithName("Workflow 1").
-		// 	WithNamespace("test").
-		// 	WithTasks([]*types.Task{
-		// 		task,
-		// 		tasks = append(wf.Tasks, &types.Task{
-		// 			ID:       "task2",
-		// 			Executor: "sleep",
-		// 			Input:    10,
-		// 		}, &types.Task{
-		// 			ID:       "sample",
-		// 			Executor: "sleep",
-		// 			Input:    10,
-		// 		})
-		// 	}).
-		// 	Build()
 	})
 
 	Describe("Validate", func() {
