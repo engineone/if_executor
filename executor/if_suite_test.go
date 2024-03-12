@@ -4,7 +4,6 @@ import (
 	"io"
 	"testing"
 
-	_ "github.com/lepsta/engineone/pkg/executors"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"github.com/sirupsen/logrus"
