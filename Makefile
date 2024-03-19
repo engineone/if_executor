@@ -22,8 +22,12 @@ build-windows:
 	CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -buildmode=plugin -o ./dist/if-executor-windows-amd64-$(VERSION).so .
 	CGO_ENABLED=1 GOOS=windows GOARCH=arm64 go build -ldflags="-s -w" -buildmode=plugin -o ./dist/if-executor-windows-arm64-$(VERSION).so .
 
+depensure:
+	go mod tidy
+	go mod vendor
+
 # Build for all platforms
-build: clean makedist
+build: clean makedist depensure
 	make build-linux
 	make build-darwin
 	make build-windows
