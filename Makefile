@@ -18,7 +18,12 @@ build-darwin:
 	CGO_ENABLED=1 GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w"  -buildmode=plugin -o ./dist/if-executor-darwin-amd64-$(VERSION).so .
 	CGO_ENABLED=1 GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -buildmode=plugin -o ./dist/if-executor-darwin-arm64-$(VERSION).so .
 
+build-windows:
+	CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -buildmode=plugin -o ./dist/if-executor-windows-amd64-$(VERSION).so .
+	CGO_ENABLED=1 GOOS=windows GOARCH=arm64 go build -ldflags="-s -w" -buildmode=plugin -o ./dist/if-executor-windows-arm64-$(VERSION).so .
+
 # Build for all platforms
 build: clean makedist
 	make build-linux
 	make build-darwin
+	make build-windows
