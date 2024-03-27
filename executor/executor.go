@@ -40,7 +40,7 @@ func NewIfExecutor() *IfExecutor {
 	}
 }
 
-func (e *IfExecutor) New() *IfExecutor {
+func (e *IfExecutor) New() types.Executor {
 	return NewIfExecutor()
 }
 
